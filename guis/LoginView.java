@@ -1,10 +1,13 @@
 package guis;
 
 import animohacks.AnimoHacksController;
+import animohacks.AnimoHacksModel;
+import animohacks.DBConnection;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -66,7 +69,29 @@ public class LoginView{
                             if(checkAccount == false)
                                 JOptionPane.showMessageDialog(null, "Sorry you have entered inavalid username or password");
                             else
-                                System.out.println("hello");
+                                //System.out.println("hello");
+                            {
+                            Main start = new Main(ahc,txtUsername.getText());
+                            
+                            frame.setVisible(false);
+                                try
+                                {
+                                    ahc.CreateMain();
+                                } catch (SQLException ex)
+                                {
+                                    Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                try
+                                {
+                                    start.setPost(ahc.getPost());
+                                } catch (IOException ex)
+                                {
+                                    Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            start.setVisible(true);
+                            
+                            }
+                                
                             
 
                                 

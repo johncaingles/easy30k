@@ -76,5 +76,22 @@ public class AnimoHacksModel
 		return rs;
         
     }
+
+    public ResultSet getPost()
+    {
+        ResultSet rs = null;
+		try
+		{
+			//con = db.getConnection();
+			statement = con.createStatement();
+			String sql = "SELECT companyid,message,item1,item2,item3,item4,item5,item1quantity,item2quantity,item3quantity,item4quantity,item5quantity,donated,target FROM request";
+			rs = statement.executeQuery(sql);
+                        
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return rs;
+    }
     
 }
