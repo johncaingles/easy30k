@@ -28,7 +28,7 @@ public class AnimoHacksController
    
     public void SelectOrg() throws SQLException
     {
-       ArrayList<String> orgs = null;
+       ArrayList<String> orgs = new ArrayList<>();
        ResultSet rs = ahm.getCompanyName();
          while (rs.next()) {
             String orgName = rs.getString("name");

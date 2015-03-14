@@ -17,6 +17,7 @@ public class AnimoHacksModel
 {
     private Connection con;
     private Statement statement;
+    
 
     public AnimoHacksModel(Connection connection)
     {
@@ -24,14 +25,16 @@ public class AnimoHacksModel
     }
 
     public ResultSet getCompanyName()
+
     {
-        		ResultSet rs = null;
+        ResultSet rs = null;
 		try
-		{   System.out.println("SEX");
-                       
+		{
+			//con = db.getConnection();
 			statement = con.createStatement();
 			String sql = "SELECT name FROM company";
 			rs = statement.executeQuery(sql);
+                        
 		} catch (Exception e)
 		{
 			e.getMessage();
