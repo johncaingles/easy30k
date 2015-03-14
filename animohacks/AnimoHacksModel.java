@@ -41,5 +41,22 @@ public class AnimoHacksModel
 		}
 		return rs;
     }
+
+    public ResultSet getFileLocation(String name)
+    {
+         ResultSet rs = null;
+		try
+		{
+			//con = db.getConnection();
+			statement = con.createStatement();
+			String sql = "SELECT logo FROM company WHERE name = '"+name+"'";
+			rs = statement.executeQuery(sql);
+                        
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return rs;
+    }
     
 }

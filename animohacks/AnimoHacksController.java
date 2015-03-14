@@ -5,9 +5,14 @@
  */
 package animohacks;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -18,7 +23,8 @@ import javax.swing.JOptionPane;
 public class AnimoHacksController
 {
    private AnimoHacksModel ahm;
-   public static final String[] pizzas = { "Cheese", "Pepperoni", "Sausage", "Veggie" };
+   private String imageLocation;
+   private String selectedOrg;
 
     public AnimoHacksController(AnimoHacksModel ahm)
     {
@@ -36,11 +42,27 @@ public class AnimoHacksController
         }
          String organizations[]=orgs.toArray(new String[orgs.size()]);
        JFrame frame = new JFrame("Selecting Organization");
-    String selectedOrg = (String) JOptionPane.showInputDialog(frame, 
+        selectedOrg = (String) JOptionPane.showInputDialog(frame, 
         "Which organization will you donate to","Selecting an Organizatin",JOptionPane.QUESTION_MESSAGE, null,
          organizations, 
         organizations[0]);
+    
+       ResultSet fileLocation = ahm.getFileLocation(selectedOrg);
+           while (fileLocation.next()) {
+            String logo = fileLocation.getString("logo");
+            this.imageLocation = logo;
+   
+        }
+
        
      }
-    
+       public String getImageLocation()
+       {
+       return imageLocation;
+       }
+       
+       public String getSelectedOrg()
+       {
+       return selectedOrg;
+       }
 }

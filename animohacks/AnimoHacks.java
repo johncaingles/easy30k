@@ -6,6 +6,7 @@
 package animohacks;
 
 import guis.MainView;
+import java.io.IOException;
 
 /**
  *
@@ -17,7 +18,7 @@ public class AnimoHacks
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
       DBConnection dbc = new DBConnection();
       AnimoHacksModel ahm = new AnimoHacksModel(dbc.getConnection());  

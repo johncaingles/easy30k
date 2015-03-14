@@ -7,12 +7,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 public class MainView extends JFrame{
     private AnimoHacksController ahc;
-	public MainView() {
+	public MainView() throws IOException {
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(600, 500);
@@ -54,8 +58,9 @@ public class MainView extends JFrame{
 		gbl_autoManualPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		autoManualPanel.setLayout(gbl_autoManualPanel);
 		
-		JLabel lblLogo = new JLabel("Select an oganization to donate");
-                lblLogo.setBounds(610, 80, 355, 355);
+		JLabel lblLogo = new JLabel("Select an org");
+                //lblLogo.setBounds(610, 80, 355, 355);
+                
 		GridBagConstraints gbc_lblLogo = new GridBagConstraints();
 		gbc_lblLogo.anchor = GridBagConstraints.NORTH;
 		gbc_lblLogo.insets = new Insets(0, 0, 5, 5);
@@ -63,8 +68,8 @@ public class MainView extends JFrame{
 		gbc_lblLogo.gridx = 2;
 		gbc_lblLogo.gridy = 0;
 		autoManualPanel.add(lblLogo, gbc_lblLogo);
-		lblLogo.setIcon(new ImageIcon("logo.jpg"));
-		//lblLogo.setPreferredSize(new Dimension(50, 50));
+		//lblLogo.setIcon(new ImageIcon("logo.jpg"));
+		lblLogo.setPreferredSize(new Dimension(100, 50));
                 
                 lblLogo.addMouseListener(new MouseAdapter()  
                 {  
@@ -73,13 +78,28 @@ public class MainView extends JFrame{
                     try
                     {
                         ahc.SelectOrg();
+                        
+                        if(ahc.getSelectedOrg() != null)
+                        {
+                        BufferedImage img = null;
+
+                            img = ImageIO.read(new File(ahc.getImageLocation()));
+                            Image dimg = img.getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon imageIcon = new ImageIcon(dimg);
+                            lblLogo.setIcon(imageIcon);
+                        }
                     } catch (SQLException ex)
+                    {
+                        Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex)
                     {
                         Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                 }  
                 }); 
+                
+       
 		
 		JButton btnAutomated = new JButton("Automated");
 		btnAutomated.addActionListener(new ActionListener() {
