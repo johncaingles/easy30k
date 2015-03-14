@@ -5,6 +5,9 @@
  */
 package animohacks;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -14,17 +17,29 @@ import javax.swing.JOptionPane;
  */
 public class AnimoHacksController
 {
-public static final String[] pizzas = { "Cheese", "Pepperoni", "Sausage", "Veggie" };
-    public void SelectOrg()
+   private AnimoHacksModel ahm;
+   public static final String[] pizzas = { "Cheese", "Pepperoni", "Sausage", "Veggie" };
+
+    public AnimoHacksController(AnimoHacksModel ahm)
     {
-       JFrame frame = new JFrame("Input Dialog Example 3");
-    String favoritePizza = (String) JOptionPane.showInputDialog(frame, 
-        "What is your favorite pizza?",
-        "Favorite Pizza",
-        JOptionPane.QUESTION_MESSAGE, 
-        null,
-         pizzas, 
-        pizzas[0]);
+        this.ahm = ahm;
+    }
+
+   
+    public void SelectOrg() throws SQLException
+    {
+       ArrayList<String> orgs = null;
+       ResultSet rs = ahm.getCompanyName();
+         while (rs.next()) {
+            String orgName = rs.getString("name");
+            orgs.add(orgName);
+        }
+         String organizations[]=orgs.toArray(new String[orgs.size()]);
+       JFrame frame = new JFrame("Selecting Organization");
+    String selectedOrg = (String) JOptionPane.showInputDialog(frame, 
+        "Which organization will you donate to","Selecting an Organizatin",JOptionPane.QUESTION_MESSAGE, null,
+         organizations, 
+        organizations[0]);
        
      }
     

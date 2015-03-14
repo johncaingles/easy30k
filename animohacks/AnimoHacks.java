@@ -20,8 +20,9 @@ public class AnimoHacks
     public static void main(String[] args)
     {
       DBConnection dbc = new DBConnection();
-      AnimoHacksController ahc = new AnimoHacksController();
       AnimoHacksModel ahm = new AnimoHacksModel(dbc.getConnection());  
+      AnimoHacksController ahc = new AnimoHacksController(ahm);
+      
       MainView mainview = new MainView();
       mainview.setController(ahc);
       

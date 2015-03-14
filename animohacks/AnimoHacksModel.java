@@ -6,18 +6,37 @@
 package animohacks;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
  * @author Kingston
  */
-class AnimoHacksModel
+public class AnimoHacksModel
 {
     private Connection con;
+    private Statement statement;
 
     public AnimoHacksModel(Connection connection)
     {
        this.con = connection;
+    }
+
+    public ResultSet getCompanyName()
+    {
+        		ResultSet rs = null;
+		try
+		{   System.out.println("SEX");
+                       
+			statement = con.createStatement();
+			String sql = "SELECT name FROM company";
+			rs = statement.executeQuery(sql);
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return rs;
     }
     
 }

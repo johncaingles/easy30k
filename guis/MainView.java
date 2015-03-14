@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class MainView extends JFrame{
     private AnimoHacksController ahc;
 	public MainView() {
@@ -67,7 +70,13 @@ public class MainView extends JFrame{
                 {  
                 public void mouseClicked(MouseEvent e)  
                 {  
-                    ahc.SelectOrg();
+                    try
+                    {
+                        ahc.SelectOrg();
+                    } catch (SQLException ex)
+                    {
+                        Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
                 }  
                 }); 
