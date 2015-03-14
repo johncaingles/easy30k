@@ -5,6 +5,7 @@
  */
 package animohacks;
 
+import guis.LoginView;
 import guis.MainView;
 import java.io.IOException;
 
@@ -15,21 +16,17 @@ import java.io.IOException;
 public class AnimoHacks
 {
 
-    /**
-     * @param args the command line arguments
-     */
+private DBConnection dbc;
     public static void main(String[] args) throws IOException
     {
       DBConnection dbc = new DBConnection();
       AnimoHacksModel ahm = new AnimoHacksModel(dbc.getConnection());  
       AnimoHacksController ahc = new AnimoHacksController(ahm);
-      
-      MainView mainview = new MainView();
-      mainview.setController(ahc);
-      
-      
-      
-      mainview.setVisible(true);
+      LoginView gui = new LoginView(ahc);
+      gui.go();
+      //MainView mainview = new MainView();
+      //mainview.setController(ahc);
+      //mainview.setVisible(true);
     }
     
 }

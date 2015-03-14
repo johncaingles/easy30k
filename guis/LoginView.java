@@ -1,23 +1,31 @@
 package guis;
 
+import animohacks.AnimoHacksController;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
  
 public class LoginView{
-    String Username = "james3302";
-    String Password = "pass";
-    String msg = " ";
-     
-     
-    public static void main(String[] args){
-        LoginView gui = new LoginView();
-        gui.go();
+    private String Username = "";
+    private String Password = "";
+    private String msg = "";
+    private AnimoHacksController ahc;
+
+    public LoginView(AnimoHacksController ahc)
+    {
+        this.ahc = ahc;
     }
+     
+     
+
     public void go(){
-        JFrame frame = new JFrame();
+        JFrame frame = new JFrame("Welcome to Donate!");
         frame.setLocationRelativeTo(null);
-        //frame.setSize(, 9999);
+        frame.setSize(500, 500);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
@@ -30,17 +38,40 @@ public class LoginView{
         JButton btnCancel = new JButton("Cancel");
         //btnCancel.addActionListener(new CancelListener());
      
- 
+        //btnLogin.setBounds(50, 140, 100, 20);
         panel.add(lblUsername);
         panel.add(txtUsername);
         panel.add(lblPassword);
-        panel.add(txtPassword);         
+        panel.add(txtPassword);
+        panel.add(btnLogin);
+        panel.add(btnCancel);
         frame.getContentPane().add(BorderLayout.CENTER,panel);
  
  
  
-        frame.setSize(300,300);
+        frame.setSize(350,200);
         frame.setVisible(true);
+        
+        	btnLogin.addActionListener(new ActionListener() {
+                        @Override
+			public void actionPerformed(ActionEvent e) {
+                            boolean checkAccount = false;
+                            try
+                            {
+                                checkAccount = ahc.checkAccount(txtUsername.getText(),new String(txtPassword.getPassword()));
+                            } catch (SQLException ex)
+                            {
+                                Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            if(checkAccount == false)
+                                JOptionPane.showMessageDialog(null, "Sorry you have entered inavalid username or password");
+                            else
+                                System.out.println("hello");
+                            
+
+                                
+			}
+		});
  
  
     }

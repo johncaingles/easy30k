@@ -25,6 +25,8 @@ public class AnimoHacksController
    private AnimoHacksModel ahm;
    private String imageLocation;
    private String selectedOrg;
+   private String name1;
+   private String pass1;
 
     public AnimoHacksController(AnimoHacksModel ahm)
     {
@@ -65,4 +67,30 @@ public class AnimoHacksController
        {
        return selectedOrg;
        }
+
+
+
+    public boolean checkAccount(String text, String string) throws SQLException
+    {
+        ResultSet rs = null; 
+        rs = ahm.checkAccount(text,string);
+         while (rs.next()) {
+            String name = rs.getString("username");
+            String pass = rs.getString("password");
+
+            name1=name;
+            pass1=pass;
+        }
+         
+       if(name1== null)
+           return false;
+       else{
+           name1=null;
+           pass1=null;
+           return true;
+           }
+      
+      
+       
+    }
 }

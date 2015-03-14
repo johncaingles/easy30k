@@ -58,5 +58,23 @@ public class AnimoHacksModel
 		}
 		return rs;
     }
+
+    public ResultSet checkAccount(String user, String pass)
+    {
+        ResultSet rs = null;
+		try
+		{
+			//con = db.getConnection();
+			statement = con.createStatement();
+			String sql = "SELECT username, password FROM accounts WHERE username = '"+user+"' AND password = '"+pass+"'";
+			rs = statement.executeQuery(sql);
+                        
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return rs;
+        
+    }
     
 }

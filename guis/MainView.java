@@ -17,7 +17,10 @@ import javax.imageio.ImageIO;
 public class MainView extends JFrame{
     private AnimoHacksController ahc;
 	public MainView() throws IOException {
+            //this.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("C:/Users/KingstonAnthony/Desktop/images.jpg")))));
 		getContentPane().setLayout(new BorderLayout(0, 0));
+                
+
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(600, 500);
 		this.setResizable(false);
@@ -58,7 +61,7 @@ public class MainView extends JFrame{
 		gbl_autoManualPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		autoManualPanel.setLayout(gbl_autoManualPanel);
 		
-		JLabel lblLogo = new JLabel("Select an org");
+		JLabel lblLogo = new JLabel("Select an organization");
                 //lblLogo.setBounds(610, 80, 355, 355);
                 
 		GridBagConstraints gbc_lblLogo = new GridBagConstraints();
@@ -69,7 +72,7 @@ public class MainView extends JFrame{
 		gbc_lblLogo.gridy = 0;
 		autoManualPanel.add(lblLogo, gbc_lblLogo);
 		//lblLogo.setIcon(new ImageIcon("logo.jpg"));
-		lblLogo.setPreferredSize(new Dimension(100, 50));
+		lblLogo.setPreferredSize(new Dimension(500, 50));
                 
                 lblLogo.addMouseListener(new MouseAdapter()  
                 {  
@@ -77,6 +80,7 @@ public class MainView extends JFrame{
                 {  
                     try
                     {
+                        lblLogo.setPreferredSize(new Dimension(100, 50));
                         ahc.SelectOrg();
                         
                         if(ahc.getSelectedOrg() != null)
